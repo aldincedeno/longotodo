@@ -1,4 +1,8 @@
 ﻿using System;
+using System.Threading.Tasks;
+using LongoTodo.Bootstrap;
+using LongoTodo.Contracts.Services;
+using LongoTodo.Views;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
@@ -10,7 +14,20 @@ namespace LongoTodo
         {
             InitializeComponent();
 
-            MainPage = new MainPage();
+            InitializeApp();
+
+            InitializeNavigation();
+        }
+
+        private void InitializeApp()
+        {
+            AppContainer.RegisterDependencies();
+        }
+
+        private void InitializeNavigation()
+        {
+            var navigationService = AppContainer.Resolve<INavigationService>();
+            navigationService.InitializeAsync();
         }
 
         protected override void OnStart()
