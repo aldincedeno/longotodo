@@ -1,0 +1,46 @@
+﻿<?xml version="1.0" encoding="UTF-8" ?>
+<ContentPage
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    Title="LongoTodo"
+    x:Class="LongoTodo.Views.TodoItemsPage">    
+
+    <ContentPage.Content>
+        <Grid RowDefinitions="*, 60">
+            <ListView Grid.Row="0"
+                    HasUnevenRows="True"
+                    ItemsSource="{Binding TodoItemsList}"
+                    SelectedItem="{Binding SelectedItem, Mode=TwoWay}"
+                    SelectionMode="Single">
+
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <ViewCell>
+                            <ViewCell.View>
+                                <StackLayout Padding="10">
+                                    <Frame HasShadow="True">
+                                        <Grid RowDefinitions="Auto"
+                                              ColumnDefinitions="3*,*">
+
+                                            <Label Grid.Row="0"
+                                                   Grid.Column="0"
+                                                   FontAttributes="Bold"
+                                                   HorizontalTextAlignment="Center"
+                                                   LineBreakMode="WordWrap"
+                                                   Text="{Binding Name}"/>
+
+                                        </Grid>
+                                    </Frame>
+                                </StackLayout>
+                            </ViewCell.View>                            
+                        </ViewCell>    
+                    </DataTemplate>                    
+                </ListView.ItemTemplate>
+
+                <ListView.Footer>
+                    <StackLayout Orientation="Horizontal"/>
+                </ListView.Footer>
+            </ListView>
+        </Grid>        
+    </ContentPage.Content>
+</ContentPage>
