@@ -3,6 +3,7 @@
     xmlns="http://xamarin.com/schemas/2014/forms"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     Title="LongoTodo"
+    x:Name="TodoItemList"
     x:Class="LongoTodo.Views.TodoItemsPage">    
 
     <ContentPage.Content>
@@ -16,6 +17,15 @@
                 <ListView.ItemTemplate>
                     <DataTemplate>
                         <ViewCell>
+
+                            <ViewCell.ContextActions>
+                                <MenuItem x:Name="menuDelete"
+                                            Command="{Binding Path=BindingContext.DeleteTodoItemCommand, Source={x:Reference Name=TodoItemList}}"
+                                            CommandParameter="{Binding .}"
+                                            IsDestructive="True"
+                                            Text="Delete"/>
+                            </ViewCell.ContextActions>
+
                             <ViewCell.View>
                                 <StackLayout Padding="10">
                                     <Frame HasShadow="True">

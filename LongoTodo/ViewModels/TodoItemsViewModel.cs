@@ -45,6 +45,7 @@ namespace LongoTodo.ViewModels
             }
         }
 
+        public ICommand DeleteTodoItemCommand => new Command(async (todoItem) => await OnDeleteTodoItemAsync(todoItem));
         public ICommand EditTodoItemCommand => new Command(async (todoItem) => await OnEditTodoItemAsync(todoItem));
         public ICommand NewTodoItemCommand => new Command(async () => await OnNewTodoItemAsync());
 
@@ -60,6 +61,25 @@ namespace LongoTodo.ViewModels
         public override async Task InitAsync()
         {
             TodoItemsList = await GetTodoItemsList();
+        }
+
+        private async Task OnDeleteTodoItemAsync(object todoItem)
+        {
+            if (!await _dialogService.ShowConfirmAsync("Are you sure?", "Warning!", "Yes", "No"))
+            {
+                return;
+            }
+
+            var todo = todoItem as TodoItem;
+
+            bool result = await _todoItemsService.DeleteTodoItem(todo);
+
+            if (result)
+            {
+                TodoItemsList.Remove(todo);
+
+                await _dialogService.ShowDialogAsync($"ToDo item {todo.Name} has been deleted correctly", "Information", "OK");
+            }
         }
 
         private async Task OnEditTodoItemAsync(object todoItem)

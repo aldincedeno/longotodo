@@ -11,5 +11,6 @@ namespace LongoTodo.Contracts.Services
         Task<IEnumerable<TodoItem>> GetTodoItemsList();
         Task<TodoItem> CreateTodoItem(TodoItem todoItem);
         Task<TodoItem> UpdateTodoItem(TodoItem todoItem);
+        Task<bool> DeleteTodoItem(TodoItem todoItem);
     }
 }

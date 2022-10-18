@@ -16,10 +16,17 @@ namespace LongoTodo.Repository
         {
         }
 
-        public async Task DeleteAsync(string uri, string authToken = "")
+        public async Task<bool> DeleteAsync(string uri, string authToken = "")
         {
             HttpClient httpClient = CreateHttpClient(authToken);
-            var httpMessage = await httpClient.DeleteAsync(uri);
+            var responseMessage = await httpClient.DeleteAsync(uri);
+
+            if (responseMessage.IsSuccessStatusCode)
+            {
+                return true;
+            }
+
+            return false;
         }
 
         public async Task<T> GetAsync<T>(string uri, string authToken = "")
