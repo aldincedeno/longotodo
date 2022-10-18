@@ -11,6 +11,9 @@
             <ListView Grid.Row="0"
                     HasUnevenRows="True"
                     ItemsSource="{Binding TodoItemsList}"
+                    IsPullToRefreshEnabled="True"
+                    IsRefreshing="{Binding IsRefreshingList}"
+                    RefreshCommand="{Binding RefreshListCommand}"
                     SelectedItem="{Binding SelectedItem, Mode=TwoWay}"
                     SelectionMode="Single">
 

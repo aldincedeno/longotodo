@@ -45,10 +45,25 @@ namespace LongoTodo.ViewModels
             }
         }
 
+        private bool _isRefreshingList;
+        public bool IsRefreshingList
+        {
+            get
+            {
+                return _isRefreshingList;
+            }
+            set
+            {
+                _isRefreshingList = value;
+                OnPropertyChanged(nameof(IsRefreshingList));
+            }
+        }
+
         public ICommand ChangeStatusTodoItemCommand => new Command(async (todoItem) => await OnChangeStatusTodoItemAsync(todoItem));
         public ICommand DeleteTodoItemCommand => new Command(async (todoItem) => await OnDeleteTodoItemAsync(todoItem));
         public ICommand EditTodoItemCommand => new Command(async (todoItem) => await OnEditTodoItemAsync(todoItem));
         public ICommand NewTodoItemCommand => new Command(async () => await OnNewTodoItemAsync());
+        public ICommand RefreshListCommand => new Command(async () => await OnRefreshListAsync());
 
         public TodoItemsViewModel(INavigationService navigationService,
                                  IDialogService dialogService,
@@ -102,6 +117,13 @@ namespace LongoTodo.ViewModels
         private async Task OnNewTodoItemAsync()
         {
             await _navigationService.NavigateToAsync<TodoItemDetailViewModel>();
+        }
+
+        private async Task OnRefreshListAsync()
+        {
+            IsRefreshingList = true;
+            TodoItemsList = await GetTodoItemsList();
+            IsRefreshingList = false;
         }
 
         private async Task<ObservableCollection<TodoItem>> GetTodoItemsList()
