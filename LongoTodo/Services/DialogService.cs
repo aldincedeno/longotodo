@@ -5,6 +5,9 @@ using LongoTodo.Contracts.Services;
 
 namespace LongoTodo.Services
 {
+    /*
+    Servicio que implementa las funcionalidades de mensajes popup. Se usa el componente Acr.UserDialogs
+    */
     public class DialogService : IDialogService
     {
         public Task<bool> ShowConfirmAsync(string message, string title, string okText, string cancelText)

@@ -8,6 +8,9 @@ using LongoTodo.ViewModels;
 
 namespace LongoTodo.Bootstrap
 {
+    /*
+    Registro de IoC, usando AutoFac
+    */
     public class AppContainer
     {
         private static IContainer _container;

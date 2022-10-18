@@ -10,6 +10,9 @@ using LongoTodo.Models;
 
 namespace LongoTodo.Services
 {
+    /*
+    Servicio que implementa las operaciones que se pueden realizar sobre los todoItems: Crear, Actualizar y Borrar
+    */
     public class TodoItemService: ITodoItemService
     {
         private readonly IGenericRepository _genericRepository;
@@ -68,10 +71,10 @@ namespace LongoTodo.Services
 
             string url = builder.ToString();
 
-            //var todoItems = await _genericRepository.GetAsync<List<TodoItem>>(url);
+            var todoItems = await _genericRepository.GetAsync<List<TodoItem>>(url);
 
-            List<TodoItem> todoItems = new List<TodoItem>();
-            todoItems.Add(new TodoItem { Id = Guid.NewGuid().ToString(), IsCompleted = false, Name = "Test Local" });
+            //List<TodoItem> todoItems = new List<TodoItem>();
+            //todoItems.Add(new TodoItem { Id = Guid.NewGuid().ToString(), IsCompleted = false, Name = "Test Local" });
 
             return todoItems;
         }

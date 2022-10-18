@@ -9,6 +9,9 @@ using Xamarin.Forms;
 
 namespace LongoTodo.Services
 {
+    /*
+    Servicio que implementa la navegación entre los diferentes formularios, ViewModel to ViewModel
+    */
     public class NavigationService: INavigationService
     {
         private readonly Dictionary<Type, Type> _mappings;
