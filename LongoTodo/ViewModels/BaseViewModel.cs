@@ -12,12 +12,15 @@ namespace LongoTodo.ViewModels
         public Page Page { get; set; }
 
         protected readonly INavigationService _navigationService;
+        protected readonly IDialogService _dialogService;
 
         public INavigation Navigation { get; set; }
 
-        public BaseViewModel(INavigationService navigationService)
+        public BaseViewModel(INavigationService navigationService,
+                             IDialogService dialogService)
         {
             _navigationService = navigationService;
+            _dialogService = dialogService;
         }
 
         public virtual Task InitAsync()

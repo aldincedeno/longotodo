@@ -27,9 +27,10 @@ namespace LongoTodo.Services
             await NavigateToAsync<TodoItemsViewModel>();
         }
 
-        public Task NavigateBackAsync()
+        public async Task NavigateBackAsync()
         {
-            throw new NotImplementedException();
+            if (CurrentApplication.MainPage != null)
+                await CurrentApplication.MainPage.Navigation.PopAsync();
         }
 
         public Task NavigateToAsync<TViewModel>() where TViewModel : BaseViewModel
@@ -39,12 +40,12 @@ namespace LongoTodo.Services
 
         public Task NavigateToAsync<TViewModel>(object parameter) where TViewModel : BaseViewModel
         {
-            throw new NotImplementedException();
+            return InternalNavigateToAsync(typeof(TViewModel), parameter);
         }
 
-        public Task PopToRootAsync()
+        public async Task PopToRootAsync()
         {
-            throw new NotImplementedException();
+            await CurrentApplication.MainPage.Navigation.PopToRootAsync();
         }
 
         protected virtual async Task InternalNavigateToAsync(Type viewModelType, object parameter, object sender = null)
@@ -106,6 +107,7 @@ namespace LongoTodo.Services
         private void CreatePageViewModelMappings()
         {
             _mappings.Add(typeof(TodoItemsViewModel), typeof(TodoItemsPage));
+            _mappings.Add(typeof(TodoItemDetailViewModel), typeof(TodoItemDetailPage));
         }
     }
 }

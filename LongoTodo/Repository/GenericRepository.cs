@@ -16,6 +16,12 @@ namespace LongoTodo.Repository
         {
         }
 
+        public async Task DeleteAsync(string uri, string authToken = "")
+        {
+            HttpClient httpClient = CreateHttpClient(authToken);
+            var httpMessage = await httpClient.DeleteAsync(uri);
+        }
+
         public async Task<T> GetAsync<T>(string uri, string authToken = "")
         {
             try
@@ -42,10 +48,82 @@ namespace LongoTodo.Repository
                     return json;
                 }
 
-                if (responseMessage.StatusCode == HttpStatusCode.Forbidden ||
-                    responseMessage.StatusCode == HttpStatusCode.Unauthorized)
-                {
+                return default(T);
 
+            }
+            catch (Exception e)
+            {
+                return default(T);
+            }
+        }
+
+        public async Task<T> PostAsync<T>(string uri, T data, string authToken = "")
+        {
+            try
+            {
+                HttpClient httpClient = CreateHttpClient(authToken);
+
+                var content = new StringContent(JsonConvert.SerializeObject(data));
+                content.Headers.ContentType = new MediaTypeHeaderValue("application/json");
+
+                string jsonResult = string.Empty;
+
+                var responseMessage = await Policy
+                    .Handle<WebException>(ex =>
+                    {
+                        return true;
+                    })
+                    .WaitAndRetryAsync
+                    (
+                        5,
+                        retryAttempt => TimeSpan.FromSeconds(Math.Pow(2, retryAttempt))
+                    )
+                    .ExecuteAsync(async () => await httpClient.PostAsync(uri, content));
+
+                if (responseMessage.IsSuccessStatusCode)
+                {
+                    jsonResult = await responseMessage.Content.ReadAsStringAsync().ConfigureAwait(false);
+                    var json = JsonConvert.DeserializeObject<T>(jsonResult);
+                    return json;
+                }
+
+                return default(T);
+
+            }
+            catch (Exception e)
+            {
+                return default(T);
+            }
+        }
+
+        public async Task<T> PutAsync<T>(string uri, T data, string authToken = "")
+        {
+            try
+            {
+                HttpClient httpClient = CreateHttpClient(authToken);
+
+                var content = new StringContent(JsonConvert.SerializeObject(data));
+                content.Headers.ContentType = new MediaTypeHeaderValue("application/json");
+
+                string jsonResult = string.Empty;
+
+                var responseMessage = await Policy
+                    .Handle<WebException>(ex =>
+                    {
+                        return true;
+                    })
+                    .WaitAndRetryAsync
+                    (
+                        5,
+                        retryAttempt => TimeSpan.FromSeconds(Math.Pow(2, retryAttempt))
+                    )
+                    .ExecuteAsync(async () => await httpClient.PutAsync(uri, content));
+
+                if (responseMessage.IsSuccessStatusCode)
+                {
+                    jsonResult = await responseMessage.Content.ReadAsStringAsync().ConfigureAwait(false);
+                    var json = JsonConvert.DeserializeObject<T>(jsonResult);
+                    return json;
                 }
 
                 return default(T);

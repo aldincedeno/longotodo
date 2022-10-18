@@ -21,11 +21,12 @@ namespace LongoTodo.Bootstrap
             var builder = new ContainerBuilder();
 
             builder.RegisterType<TodoItemsViewModel>().SingleInstance();
-
+            builder.RegisterType<TodoItemDetailViewModel>().SingleInstance();
 
             builder.RegisterType<NavigationService>().As<INavigationService>().SingleInstance();
             builder.RegisterType<GenericRepository>().As<IGenericRepository>().SingleInstance();
             builder.RegisterType<TodoItemService>().As<ITodoItemService>().SingleInstance();
+            builder.RegisterType<DialogService>().As<IDialogService>().SingleInstance();
 
             _container = builder.Build();
         }

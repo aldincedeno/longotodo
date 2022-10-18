@@ -1,0 +1,30 @@
+﻿<?xml version="1.0" encoding="UTF-8" ?>
+<ContentPage
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    x:Class="LongoTodo.Views.TodoItemDetailPage">
+
+    <ContentPage.Content>
+            <Grid Padding="5"
+                  RowDefinitions="Auto, Auto, *, 60">
+
+                <Label Grid.Row="0"
+                       FontAttributes="Bold"
+                       FontSize="Large"
+                       Text="Name"
+                       VerticalTextAlignment="Center"/>
+
+                <Entry  Grid.Row="1"
+                        HeightRequest="50"
+                        Margin="5"
+                        Text="{Binding NameItem}"/>
+
+                <Button Grid.Row="3"
+                        Command="{Binding CreateItemCommand}"
+                        FontSize="18"
+                        Margin="5"
+                        Text="Create" 
+                        VerticalOptions="End"/>
+            </Grid>
+    </ContentPage.Content>
+</ContentPage>

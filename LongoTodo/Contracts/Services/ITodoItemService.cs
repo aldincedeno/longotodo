@@ -9,5 +9,7 @@ namespace LongoTodo.Contracts.Services
     public interface ITodoItemService
     {
         Task<IEnumerable<TodoItem>> GetTodoItemsList();
+        Task<TodoItem> CreateTodoItem(TodoItem todoItem);
+        Task<TodoItem> UpdateTodoItem(TodoItem todoItem);
     }
 }

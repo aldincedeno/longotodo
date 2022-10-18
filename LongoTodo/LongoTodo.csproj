@@ -16,6 +16,7 @@
     <PackageReference Include="Autofac" Version="6.4.0" />
     <PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
     <PackageReference Include="Polly" Version="7.2.3" />
+    <PackageReference Include="Acr.UserDialogs" Version="7.1.0.442" />
   </ItemGroup>
   <ItemGroup>
     <None Remove="ViewModels\" />
@@ -32,6 +33,7 @@
     <None Remove="Newtonsoft.Json" />
     <None Remove="Polly" />
     <None Remove="Extensions\" />
+    <None Remove="Acr.UserDialogs" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="ViewModels\" />
