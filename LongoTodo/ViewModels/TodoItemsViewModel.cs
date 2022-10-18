@@ -41,10 +41,11 @@ namespace LongoTodo.ViewModels
                 _selectedItem = value;
                 OnPropertyChanged(nameof(SelectedItem));
 
-                EditTodoItemCommand.Execute(SelectedItem);
+                //EditTodoItemCommand.Execute(SelectedItem);
             }
         }
 
+        public ICommand ChangeStatusTodoItemCommand => new Command(async (todoItem) => await OnChangeStatusTodoItemAsync(todoItem));
         public ICommand DeleteTodoItemCommand => new Command(async (todoItem) => await OnDeleteTodoItemAsync(todoItem));
         public ICommand EditTodoItemCommand => new Command(async (todoItem) => await OnEditTodoItemAsync(todoItem));
         public ICommand NewTodoItemCommand => new Command(async () => await OnNewTodoItemAsync());
@@ -61,6 +62,16 @@ namespace LongoTodo.ViewModels
         public override async Task InitAsync()
         {
             TodoItemsList = await GetTodoItemsList();
+        }
+
+        private async Task OnChangeStatusTodoItemAsync(object todoItem)
+        {
+            var todo = todoItem as TodoItem;
+
+            if (todo == null) return;
+
+            todo.IsCompleted = !todo.IsCompleted;
+            await _todoItemsService.UpdateTodoItem(todo);
         }
 
         private async Task OnDeleteTodoItemAsync(object todoItem)

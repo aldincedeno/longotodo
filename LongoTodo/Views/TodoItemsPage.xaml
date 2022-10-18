@@ -31,13 +31,28 @@
                                     <Frame HasShadow="True">
                                         <Grid RowDefinitions="Auto"
                                               ColumnDefinitions="3*,*">
+                                            <Grid.GestureRecognizers>
+                                                <TapGestureRecognizer Command="{Binding Path=BindingContext.ChangeStatusTodoItemCommand, Source={x:Reference Name=TodoItemList}}"
+                                                                      CommandParameter="{Binding .}"
+                                                                      NumberOfTapsRequired="1" />
+                                            </Grid.GestureRecognizers>
 
                                             <Label Grid.Row="0"
                                                    Grid.Column="0"
                                                    FontAttributes="Bold"
+                                                   FontSize="Medium"
                                                    HorizontalTextAlignment="Center"
                                                    LineBreakMode="WordWrap"
                                                    Text="{Binding Name}"/>
+
+                                            <Image Grid.Row="0"
+                                                   Grid.Column="1"
+                                                   Aspect="AspectFit"
+                                                   BackgroundColor="DodgerBlue"
+                                                   HeightRequest="30"
+                                                   IsVisible="{Binding IsCompleted, Mode=TwoWay, FallbackValue=false}"
+                                                   HorizontalOptions="End" 
+                                                   Source="finalize"/>
 
                                         </Grid>
                                     </Frame>
