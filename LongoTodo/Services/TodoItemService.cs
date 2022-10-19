@@ -27,7 +27,6 @@ namespace LongoTodo.Services
             UriBuilder builder = new UriBuilder(ApiConstants.AppServiceUrl)
             {
                 Path = ApiConstants.TodoListEndPoint,
-                Port = -1,
             };
 
             var query = HttpUtility.ParseQueryString(builder.Query);
@@ -45,7 +44,6 @@ namespace LongoTodo.Services
             UriBuilder builder = new UriBuilder(ApiConstants.AppServiceUrl)
             {
                 Path = ApiConstants.TodoListEndPoint,
-                Port = -1,
             };
 
             var query = HttpUtility.ParseQueryString(builder.Query);
@@ -63,7 +61,6 @@ namespace LongoTodo.Services
             UriBuilder builder = new UriBuilder(ApiConstants.AppServiceUrl)
             {
                 Path = ApiConstants.TodoListEndPoint,
-                Port = -1,
             };
 
             var query = HttpUtility.ParseQueryString(builder.Query);
@@ -71,10 +68,13 @@ namespace LongoTodo.Services
 
             string url = builder.ToString();
 
-            //var todoItems = await _genericRepository.GetAsync<List<TodoItem>>(url);
+            var todoItems = await _genericRepository.GetAsync<List<TodoItem>>(url);
 
-            List<TodoItem> todoItems = new List<TodoItem>();
-            todoItems.Add(new TodoItem { Id = Guid.NewGuid().ToString(), IsCompleted = false, Name = "Test Local" });
+            if (todoItems == null)
+            {
+                todoItems = new List<TodoItem>();
+                todoItems.Add(new TodoItem { Id = Guid.NewGuid().ToString(), IsCompleted = false, Name = "Test Local" });
+            }  
 
             return todoItems;
         }
@@ -84,7 +84,6 @@ namespace LongoTodo.Services
             UriBuilder builder = new UriBuilder(ApiConstants.AppServiceUrl)
             {
                 Path = ApiConstants.TodoListEndPoint,
-                Port = -1,
             };
 
             var query = HttpUtility.ParseQueryString(builder.Query);
