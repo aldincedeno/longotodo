@@ -71,10 +71,10 @@ namespace LongoTodo.Services
 
             string url = builder.ToString();
 
-            var todoItems = await _genericRepository.GetAsync<List<TodoItem>>(url);
+            //var todoItems = await _genericRepository.GetAsync<List<TodoItem>>(url);
 
-            //List<TodoItem> todoItems = new List<TodoItem>();
-            //todoItems.Add(new TodoItem { Id = Guid.NewGuid().ToString(), IsCompleted = false, Name = "Test Local" });
+            List<TodoItem> todoItems = new List<TodoItem>();
+            todoItems.Add(new TodoItem { Id = Guid.NewGuid().ToString(), IsCompleted = false, Name = "Test Local" });
 
             return todoItems;
         }

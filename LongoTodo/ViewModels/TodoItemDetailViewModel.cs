@@ -69,7 +69,7 @@ namespace LongoTodo.ViewModels
 
                 _todoItem = await _todoItemsService.CreateTodoItem(todo);
 
-                MessagingCenter.Send(this, MessagesKey.NewTodoItem, _todoItem);
+                MessagingCenter.Send(this, MessagesKey.NewTodoItem, todo);
                 await _navigationService.NavigateBackAsync();
             }
             else
